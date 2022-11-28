@@ -1,0 +1,3 @@
+C:/Users/ag629/CLionProjects/OSLab9/Main/cmake-build-debug/CMakeFiles/Main.dir
+C:/Users/ag629/CLionProjects/OSLab9/Main/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ag629/CLionProjects/OSLab9/Main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
