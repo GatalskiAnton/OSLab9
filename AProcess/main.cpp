@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstring>
 
-int main(void)
+int main()
 {
     HANDLE hPipe;
     char buffer[1024];
@@ -14,7 +14,7 @@ int main(void)
 
     hPipe = CreateNamedPipe(TEXT("\\\\.\\pipe\\PipeM"),
                             PIPE_ACCESS_DUPLEX,
-                            PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,   // FILE_FLAG_FIRST_PIPE_INSTANCE is not needed but forces CreateNamedPipe(..) to fail if the pipe already exists...
+                            PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
                             1,
                             1024 * 16,
                             1024 * 16,
@@ -22,7 +22,7 @@ int main(void)
                             NULL);
     while (hPipe != INVALID_HANDLE_VALUE)
     {
-        if (ConnectNamedPipe(hPipe, NULL) != FALSE)   // wait for someone to connect to the pipe
+        if (ConnectNamedPipe(hPipe, NULL) != FALSE)
         {
             while (ReadFile(hPipe, buffer, sizeof(buffer) - 1, &dwRead, NULL) != FALSE)
             {
@@ -52,14 +52,12 @@ int main(void)
                 {
                     WriteFile(hPipe,
                               outBuffer.c_str(),
-                              outBuffer.length() + 1,   // = length of string + terminating '\0' !!!
+                              outBuffer.length() + 1,
                               &dwWritten,
                               NULL);
 
                     CloseHandle(hPipe);
                 }
-
-                printf("%s", outBuffer.c_str());
             }
         }
 
@@ -67,7 +65,7 @@ int main(void)
         {
             WriteFile(hPipe,
                       outBuffer.c_str(),
-                      12,   // = length of string + terminating '\0' !!!
+                      12,
                       &dwWritten,
                       NULL);
 

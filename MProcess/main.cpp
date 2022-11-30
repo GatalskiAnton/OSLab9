@@ -1,25 +1,17 @@
 #include <windows.h>
 #include <string>
-#include <iostream>
 
-int main(void)
-{
+int main(int argc, char *argv[]) {
 
     HANDLE hPipe;
     DWORD dwWritten;
 
-    char inBuffer[1024] = "12 3 7 19\n";
-
-    char* next = nullptr;
-    char* ptr = strtok_s(inBuffer, " ", &next);
-    std::string outBuffer = "";
-
-    while(ptr != NULL)
-    {
-        outBuffer += std::to_string(std::atoi(ptr) * 7) + " ";
-        ptr = strtok_s(NULL, " ", &next);
+    std::string out;
+    for (int i = 1; i < argc; ++i) {
+        out += std::to_string(std::atoi(argv[i]) * 7) + " ";
     }
-    outBuffer += '\n';
+    out += '\n';
+
 
     hPipe = CreateFile(TEXT("\\\\.\\pipe\\PipeM"),
                        GENERIC_READ | GENERIC_WRITE,
@@ -28,11 +20,10 @@ int main(void)
                        OPEN_EXISTING,
                        0,
                        NULL);
-    if (hPipe != INVALID_HANDLE_VALUE)
-    {
+    if (hPipe != INVALID_HANDLE_VALUE) {
         WriteFile(hPipe,
-                  outBuffer.c_str(),
-                  outBuffer.length() + 1,   // = length of string + terminating '\0' !!!
+                  out.c_str(),
+                  out.length() + 1,
                   &dwWritten,
                   NULL);
 

@@ -21,10 +21,10 @@ void callProcess(std::string str)
 
 int main(void)
 {
-    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\SProcess\\cmake-build-debug\\SProcess.exe");
-    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\PProcess\\cmake-build-debug\\PProcess.exe");
-    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\AProcess\\cmake-build-debug\\AProcess.exe");
-    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\MProcess\\cmake-build-debug\\MProcess.exe");
+//    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\SProcess\\cmake-build-debug\\SProcess.exe");
+//    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\PProcess\\cmake-build-debug\\PProcess.exe");
+//    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\AProcess\\cmake-build-debug\\AProcess.exe");
+//    callProcess("C:\\Users\\ag629\\CLionProjects\\OSLab9\\MProcess\\cmake-build-debug\\MProcess.exe");
 
 
 
@@ -51,8 +51,6 @@ int main(void)
 
                 printf("%s", buffer);
                 DisconnectNamedPipe(hPipe);
-
-
             }
         }
 
