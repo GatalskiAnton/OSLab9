@@ -20,11 +20,12 @@ int main()
                             1024 * 16,
                             NMPWAIT_USE_DEFAULT_WAIT,
                             NULL);
-    while (hPipe != INVALID_HANDLE_VALUE)
+
+    if(hPipe != INVALID_HANDLE_VALUE)
     {
-        if (ConnectNamedPipe(hPipe, NULL) != FALSE)
+        if (ConnectNamedPipe(hPipe, NULL))
         {
-            while (ReadFile(hPipe, buffer, sizeof(buffer) - 1, &dwRead, NULL) != FALSE)
+            if (ReadFile(hPipe, buffer, sizeof(buffer) - 1, &dwRead, NULL))
             {
 
                 buffer[dwRead] = '\0';
@@ -40,42 +41,28 @@ int main()
                 }
                 outBuffer = std::to_string(sum);
                 outBuffer += '\n';
-
-
-                hPipe = CreateFile(TEXT("\\\\.\\pipe\\PipeS"),
-                                   GENERIC_READ | GENERIC_WRITE,
-                                   0,
-                                   NULL,
-                                   OPEN_EXISTING,
-                                   0,
-                                   NULL);
-                if (hPipe != INVALID_HANDLE_VALUE)
-                {
-                    WriteFile(hPipe,
-                              outBuffer.c_str(),
-                              outBuffer.length() + 1,
-                              &dwWritten,
-                              NULL);
-
-                    CloseHandle(hPipe);
-                }
             }
         }
-
-        if (hPipe != INVALID_HANDLE_VALUE)
-        {
-            WriteFile(hPipe,
-                      outBuffer.c_str(),
-                      12,
-                      &dwWritten,
-                      NULL);
-
-            CloseHandle(hPipe);
-        }
-        DisconnectNamedPipe(hPipe);
     }
 
 
+    hPipe = CreateFile(TEXT("\\\\.\\pipe\\PipeS"),
+                       GENERIC_READ | GENERIC_WRITE,
+                       0,
+                       NULL,
+                       OPEN_EXISTING,
+                       0,
+                       NULL);
+    if (hPipe != INVALID_HANDLE_VALUE)
+    {
+        WriteFile(hPipe,
+                  outBuffer.c_str(),
+                  outBuffer.length() + 1,
+                  &dwWritten,
+                  NULL);
+
+        CloseHandle(hPipe);
+    }
 
 
     return 0;

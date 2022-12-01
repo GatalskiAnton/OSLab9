@@ -30,5 +30,5 @@ int main(int argc, char *argv[]) {
         CloseHandle(hPipe);
     }
 
-    return (0);
+    return 0;
 }
